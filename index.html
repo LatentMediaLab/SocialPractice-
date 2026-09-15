@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>FEED</title>
 
 <style>
-
-
 
 * {
   box-sizing: border-box;
@@ -29,322 +23,224 @@ body {
   font-family: Arial, sans-serif;
 }
 
-
-
-
-body {
-  overflow-x: hidden;
-}
-
-
-
+/* =========================
+   FEED ZONE
+========================= */
 
 .post-zone {
   height: 10000px;
   position: relative;
 }
 
-
+/* =========================
+   POST
+========================= */
 
 .post {
+  position: fixed;
 
   width: 600px;
   height: 680px;
 
-  position: fixed;
-
-  top: 50%;
   left: 50%;
+  top: 50%;
 
   transform: translate(-50%, -50%);
 
-  margin: 0;
-  padding: 20px 0;
+  background: #111;
+
+  display: none;
 
   overflow: hidden;
 
-  border-bottom: 1px solid #333;
+  /* 上下を徐々に見えなくする */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
 
-  
-
-  -webkit-mask-image:
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(0,0,0,0.15) 8%,
-      black 22%,
-      black 78%,
-      rgba(0,0,0,0.15) 92%,
-      transparent 100%
-    );
-
-  mask-image:
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(0,0,0,0.15) 8%,
-      black 22%,
-      black 78%,
-      rgba(0,0,0,0.15) 92%,
-      transparent 100%
-    );
-
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
 }
 
-
-
-
-.user {
-
-  display: flex;
-  align-items: center;
-
-  margin-bottom: 12px;
-  padding: 0 15px;
-
-  font-size: 14px;
-
-}
-
-
-.icon {
-
-  width: 40px;
-  height: 40px;
-
-  border-radius: 50%;
-
-  background: #555;
-
-  margin-right: 10px;
-
-}
-
-
-
+/* =========================
+   IMAGE / VIDEO
+========================= */
 
 .image {
-
   width: 600px;
   height: 450px;
 
-  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   overflow: hidden;
-
-  margin-bottom: 12px;
-
 }
-
 
 .image img,
 .image video {
-
   width: 100%;
   height: 100%;
 
   object-fit: contain;
 
   display: block;
-
 }
 
+/* =========================
+   USER
+========================= */
 
+.user {
+  font-size: 18px;
+  font-weight: bold;
 
+  padding: 18px 20px 8px;
+}
+
+/* =========================
+   CAPTION
+========================= */
 
 .caption {
+  font-size: 18px;
 
-  padding: 0 15px;
+  padding: 0 20px 12px;
 
-  font-size: 15px;
-
-  line-height: 1.6;
-
+  line-height: 1.5;
 }
 
-
-
+/* =========================
+   ACTION
+========================= */
 
 .actions {
+  font-size: 18px;
 
-  padding: 12px 15px 0;
-
-  font-size: 14px;
-
+  padding: 0 20px;
 }
 
+/* =========================
+   TOP FOG
+========================= */
 
-
-
-.fog {
-
+.fog-top {
   position: fixed;
 
+  top: 0;
   left: 0;
 
   width: 100%;
+  height: 180px;
 
   pointer-events: none;
 
-  z-index: 10;
+  background: linear-gradient(
+    to bottom,
+    #111 0%,
+    rgba(17,17,17,0.95) 25%,
+    rgba(17,17,17,0.5) 65%,
+    rgba(17,17,17,0) 100%
+  );
 
+  z-index: 20;
 }
 
+/* =========================
+   BOTTOM FOG
+========================= */
 
-
-
-.fog.top {
-
-  top: 0;
-
-  height: 25vh;
-
-  background:
-    linear-gradient(
-      to bottom,
-      #111 0%,
-      rgba(17,17,17,0.9) 30%,
-      rgba(17,17,17,0) 100%
-    );
-
-}
-
-
-
-
-.fog.bottom {
+.fog-bottom {
+  position: fixed;
 
   bottom: 0;
+  left: 0;
 
-  height: 25vh;
+  width: 100%;
+  height: 180px;
 
-  background:
-    linear-gradient(
-      to top,
-      #111 0%,
-      rgba(17,17,17,0.9) 30%,
-      rgba(17,17,17,0) 100%
-    );
+  pointer-events: none;
 
+  background: linear-gradient(
+    to top,
+    #111 0%,
+    rgba(17,17,17,0.95) 25%,
+    rgba(17,17,17,0.5) 65%,
+    rgba(17,17,17,0) 100%
+  );
+
+  z-index: 20;
 }
 
-
-
+/* =========================
+   SCROLL INFO
+========================= */
 
 #scrollInfo {
-
   position: fixed;
 
-  top: 15px;
-  left: 15px;
+  top: 20px;
+  left: 20px;
 
-  z-index: 20;
+  font-size: 14px;
 
-  font-size: 12px;
+  z-index: 30;
 
-  color: #777;
-
+  opacity: 0.7;
 }
 
+/* =========================
+   PROGRESS
+========================= */
 
 #progress {
-
   position: fixed;
 
-  top: 35px;
-  left: 15px;
+  top: 45px;
+  left: 20px;
 
-  z-index: 20;
+  font-size: 14px;
 
-  font-size: 12px;
+  z-index: 30;
 
-  color: #777;
-
+  opacity: 0.7;
 }
 
+/* =========================
+   LOCK MESSAGE
+========================= */
 
 #lockMessage {
-
   position: fixed;
 
-  bottom: 20px;
+  bottom: 25px;
   left: 50%;
 
   transform: translateX(-50%);
 
-  z-index: 20;
+  font-size: 18px;
 
-  font-size: 14px;
+  z-index: 30;
 
-  color: #aaa;
+  text-align: center;
 
   white-space: nowrap;
-
-}
-
-
-
-
-@media (max-width: 700px) {
-
-  .post {
-
-    width: calc(100vw - 40px);
-
-    height: 680px;
-
-  }
-
-
-  .image {
-
-    width: 100%;
-
-    height: 450px;
-
-  }
-
-}
-
-
-
-@media (max-height: 750px) {
-
-  .post {
-
-    height: 620px;
-
-  }
-
-  .image {
-
-    height: 390px;
-
-  }
-
 }
 
 </style>
-
 </head>
 
 
 <body>
-
-
-
-
-<div id="scrollInfo">
-  SCROLL: 0px
-</div>
-
-<div id="progress">
-  NEXT: 0 / 10000px
-</div>
-
-<div id="lockMessage">
-  あと 10000px で次の投稿
-</div>
 
 
 <!-- =========================
@@ -355,13 +251,12 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>visual_daily</span>
-    </div>
-
     <div class="image">
       <img src="photo1.jpg">
+    </div>
+
+    <div class="user">
+      visual_daily
     </div>
 
     <div class="caption">
@@ -385,21 +280,20 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>design_world</span>
-    </div>
-
     <div class="image">
       <img src="photo2.jpg">
     </div>
 
+    <div class="user">
+      design_world
+    </div>
+
     <div class="caption">
-      新しいデザインを考え中。🧐
+      新しいデザインを考え中。
     </div>
 
     <div class="actions">
-      ♡ 521　💬 38
+      ♡ 183　💬 8
     </div>
 
   </div>
@@ -415,21 +309,20 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>3d_creator</span>
-    </div>
-
     <div class="image">
       <img src="photo3.jpg">
     </div>
 
+    <div class="user">
+      3d_creator
+    </div>
+
     <div class="caption">
-      上空からお届け✈️
+      上空からお届け🌟
     </div>
 
     <div class="actions">
-      ♡ 183　💬 9
+      ♡ 421　💬 21
     </div>
 
   </div>
@@ -445,21 +338,20 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>photo_memory</span>
-    </div>
-
     <div class="image">
       <img src="photo4.jpg">
     </div>
 
+    <div class="user">
+      photo_memory
+    </div>
+
     <div class="caption">
-      去年撮った写真📸
+      去年撮った写真。
     </div>
 
     <div class="actions">
-      ♡ 96　💬 4
+      ♡ 97　💬 4
     </div>
 
   </div>
@@ -475,21 +367,20 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>food_daily</span>
-    </div>
-
     <div class="image">
       <img src="photo5.jpg">
     </div>
 
+    <div class="user">
+      food_daily
+    </div>
+
     <div class="caption">
-      どろっどろのどろどろ。。
+      今日のごはん。
     </div>
 
     <div class="actions">
-      ♡ 734　💬 51
+      ♡ 326　💬 17
     </div>
 
   </div>
@@ -505,13 +396,7 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>daily_room</span>
-    </div>
-
     <div class="image">
-
       <video
         src="photo6.mp4"
         muted
@@ -519,15 +404,18 @@ body {
         playsinline
         preload="metadata">
       </video>
+    </div>
 
+    <div class="user">
+      daily_room
     </div>
 
     <div class="caption">
-      🟥⭐️🔵
+      ▫️⭐️◯
     </div>
 
     <div class="actions">
-      ♡ 324　💬 17
+      ♡ 156　💬 9
     </div>
 
   </div>
@@ -543,13 +431,7 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>world_news</span>
-    </div>
-
     <div class="image">
-
       <video
         src="photo7.mov"
         muted
@@ -557,15 +439,18 @@ body {
         playsinline
         preload="metadata">
       </video>
+    </div>
 
+    <div class="user">
+      world_news
     </div>
 
     <div class="caption">
-      今日のニュース✉️
+      今日のニュース。
     </div>
 
     <div class="actions">
-      ♡ 102　💬 26
+      ♡ 512　💬 36
     </div>
 
   </div>
@@ -581,13 +466,7 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>recommend</span>
-    </div>
-
     <div class="image">
-
       <video
         src="photo8.mp4"
         muted
@@ -595,15 +474,18 @@ body {
         playsinline
         preload="metadata">
       </video>
+    </div>
 
+    <div class="user">
+      recommend
     </div>
 
     <div class="caption">
-      これ、おすすめです💥
+      これおすすめです。
     </div>
 
     <div class="actions">
-      ♡ 891　💬 74
+      ♡ 276　💬 13
     </div>
 
   </div>
@@ -619,13 +501,7 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>daily_life</span>
-    </div>
-
     <div class="image">
-
       <video
         src="photo9.mp4"
         muted
@@ -633,15 +509,18 @@ body {
         playsinline
         preload="metadata">
       </video>
+    </div>
 
+    <div class="user">
+      daily_life
     </div>
 
     <div class="caption">
-      忙しない踏切⚪️ー🔴
+      忙しない💨
     </div>
 
     <div class="actions">
-      ♡ 411　💬 21
+      ♡ 384　💬 22
     </div>
 
   </div>
@@ -657,21 +536,20 @@ body {
 
   <div class="post">
 
-    <div class="user">
-      <div class="icon"></div>
-      <span>animal_world</span>
-    </div>
-
     <div class="image">
       <img src="photo10.png">
     </div>
 
+    <div class="user">
+      animal_world
+    </div>
+
     <div class="caption">
-      へにゃぶよマーク🪯
+      へにゃぶよマーク🟩
     </div>
 
     <div class="actions">
-      ♡ 1,204　💬 89
+      ♡ 198　💬 11
     </div>
 
   </div>
@@ -680,18 +558,45 @@ body {
 
 
 <!-- =========================
-     霧
+     FOG
 ========================= -->
 
-<div class="fog top"></div>
-<div class="fog bottom"></div>
+<div class="fog-top"></div>
+<div class="fog-bottom"></div>
+
+
+<!-- =========================
+     UI
+========================= -->
+
+<div id="scrollInfo">
+  SCROLL: 0px
+</div>
+
+<div id="progress">
+  NEXT: 0 / 10000px
+</div>
+
+<div id="lockMessage">
+  あと 10000px / 10秒
+</div>
 
 
 <script>
 
+/* ==================================================
+   SETTINGS
+================================================== */
+
+const requiredScroll = 30000;
+
+// 10秒
+const requiredTime = 20000;
 
 
-const requiredScroll = 10000;
+/* ==================================================
+   ELEMENTS
+================================================== */
 
 const postZones =
   document.querySelectorAll(".post-zone");
@@ -700,49 +605,34 @@ const totalPosts =
   postZones.length;
 
 
+/* ==================================================
+   STATE
+================================================== */
 
+// 現在表示している投稿
+let currentPost = 0;
+
+// 現在の投稿が表示され始めた時間
+let postStartTime = Date.now();
+
+// スクロール処理中かどうか
+let ticking = false;
+
+
+/* ==================================================
+   HISTORY
+================================================== */
 
 history.scrollRestoration = "manual";
 
-window.addEventListener("load", function() {
 
-  window.scrollTo(0, 0);
+/* ==================================================
+   SHOW POST
+================================================== */
 
-  updatePosts(0);
-  updateUI(0);
+function showPost(index) {
 
-});
-
-
-/* ========================================
-   投稿の切り替え
-======================================== */
-
-function updatePosts(scrollY) {
-
-  /*
-    Safariのゴムバンドスクロール対策
-  */
-
-  scrollY = Math.max(0, scrollY);
-
-
-  /*
-    10000pxごとに投稿番号を変更
-  */
-
-  let currentPost =
-    Math.floor(scrollY / requiredScroll);
-
-
-  currentPost =
-    Math.min(
-      currentPost,
-      totalPosts - 1
-    );
-
-
-  postZones.forEach(function(zone, index) {
+  postZones.forEach(function(zone, i) {
 
     const post =
       zone.querySelector(".post");
@@ -751,42 +641,24 @@ function updatePosts(scrollY) {
       zone.querySelector("video");
 
 
-    if (index === currentPost) {
-
-      /*
-        現在の投稿だけ表示
-      */
+    if (i === index) {
 
       post.style.display = "block";
 
 
-      /*
-        現在の動画だけ再生
-      */
-
+      // 現在の動画だけ再生
       if (video) {
 
-        video.play().catch(function() {
-          // iPadの自動再生制限対策
-        });
+        video.play().catch(function() {});
 
       }
 
-    }
-
-    else {
-
-      /*
-        他の投稿は非表示
-      */
+    } else {
 
       post.style.display = "none";
 
 
-      /*
-        他の動画は停止
-      */
-
+      // 他の動画は停止
       if (video) {
 
         video.pause();
@@ -800,106 +672,214 @@ function updatePosts(scrollY) {
 }
 
 
-/* ========================================
-   UI更新
-======================================== */
+/* ==================================================
+   INITIAL
+================================================== */
 
-function updateUI(scrollY) {
+window.addEventListener("load", function() {
 
-  scrollY = Math.max(0, scrollY);
+  window.scrollTo(0, 0);
+
+  currentPost = 0;
+
+  postStartTime = Date.now();
+
+  showPost(currentPost);
+
+  updateUI();
+
+});
 
 
-  let currentPost =
-    Math.floor(scrollY / requiredScroll);
+/* ==================================================
+   SCROLL CONTROL
+================================================== */
+
+function handleScroll() {
+
+  let scrollY =
+    Math.max(0, window.scrollY);
 
 
-  currentPost =
-    Math.min(
-      currentPost,
-      totalPosts - 1
+  /*
+    現在の投稿の開始位置
+  */
+
+  const currentStart =
+    currentPost * requiredScroll;
+
+
+  /*
+    現在の投稿の終了位置
+  */
+
+  const nextBoundary =
+    (currentPost + 1) * requiredScroll;
+
+
+  /*
+    現在の投稿を表示してから
+    何秒経過したか
+  */
+
+  const elapsed =
+    Date.now() - postStartTime;
+
+
+  /*
+    前の投稿へ戻った場合
+  */
+
+  if (
+    currentPost > 0 &&
+    scrollY < currentStart
+  ) {
+
+    const previousPost =
+      Math.floor(
+        scrollY / requiredScroll
+      );
+
+
+    currentPost =
+      Math.max(0, previousPost);
+
+
+    /*
+      前の投稿に戻ったので
+      その時点から10秒カウント開始
+    */
+
+    postStartTime = Date.now();
+
+    showPost(currentPost);
+
+    updateUI();
+
+    return;
+  }
+
+
+  /*
+    最後の投稿では
+    次の投稿がないので終了
+  */
+
+  if (currentPost >= totalPosts - 1) {
+
+    updateUI();
+
+    return;
+  }
+
+
+  /*
+    10,000pxに到達したか
+  */
+
+  const reachedScroll =
+    scrollY >= nextBoundary;
+
+
+  /*
+    10秒経過したか
+  */
+
+  const reachedTime =
+    elapsed >= requiredTime;
+
+
+  /* ==================================================
+     両方クリア
+  ================================================== */
+
+  if (
+    reachedScroll &&
+    reachedTime
+  ) {
+
+    /*
+      一気に複数投稿飛ばさない
+    */
+
+    currentPost++;
+
+
+    /*
+      次の投稿の10秒カウント開始
+    */
+
+    postStartTime = Date.now();
+
+
+    showPost(currentPost);
+
+
+    /*
+      必ず次の投稿の開始位置に戻す
+
+      例えば15000pxまで一気に
+      スワイプしても、
+
+      投稿2は10000px地点から
+      スタートする。
+    */
+
+    window.scrollTo(
+      0,
+      currentPost * requiredScroll
     );
 
 
-  /*
-    現在の投稿内で
-    どこまでスクロールしたか
-  */
+    updateUI();
 
-  let positionInPost =
-    scrollY % requiredScroll;
+    return;
+  }
 
 
-  positionInPost =
-    Math.min(
-      positionInPost,
-      requiredScroll
+  /* ==================================================
+     10,000pxに到達したが
+     10秒経っていない
+  ================================================== */
+
+  if (
+    reachedScroll &&
+    !reachedTime
+  ) {
+
+    /*
+      10,000px地点でロック
+
+      それ以上スクロールできない
+    */
+
+    window.scrollTo(
+      0,
+      nextBoundary
     );
 
 
-  /*
-    SCROLL表示
-  */
+    updateUI();
 
-  document.getElementById(
-    "scrollInfo"
-  ).textContent =
-    "SCROLL: " +
-    Math.round(scrollY) +
-    "px";
-
-
-  /*
-    NEXT表示
-  */
-
-  document.getElementById(
-    "progress"
-  ).textContent =
-    "NEXT: " +
-    Math.round(positionInPost) +
-    " / " +
-    requiredScroll +
-    "px";
-
-
-  /*
-    残り距離
-  */
-
-  if (currentPost < totalPosts - 1) {
-
-    const remaining =
-      requiredScroll -
-      positionInPost;
-
-
-    document.getElementById(
-      "lockMessage"
-    ).textContent =
-      "あと " +
-      Math.round(remaining) +
-      "px で次の投稿";
-
+    return;
   }
 
-  else {
 
-    document.getElementById(
-      "lockMessage"
-    ).textContent =
-      "FEED END";
+  /*
+    まだ10,000pxに
+    到達していない
 
-  }
+    → 普通にスクロール
+  */
+
+  updateUI();
 
 }
 
 
-/* ========================================
-   スクロールイベント
-======================================== */
-
-let ticking = false;
-
+/* ==================================================
+   SCROLL EVENT
+================================================== */
 
 window.addEventListener(
   "scroll",
@@ -910,14 +890,7 @@ window.addEventListener(
       window.requestAnimationFrame(
         function() {
 
-          const scrollY =
-            window.scrollY;
-
-
-          updatePosts(scrollY);
-
-          updateUI(scrollY);
-
+          handleScroll();
 
           ticking = false;
 
@@ -934,9 +907,213 @@ window.addEventListener(
   }
 );
 
+
+/* ==================================================
+   UI UPDATE
+================================================== */
+
+function updateUI() {
+
+  let scrollY =
+    Math.max(0, window.scrollY);
+
+
+  /*
+    現在の投稿の開始位置
+  */
+
+  const currentStart =
+    currentPost * requiredScroll;
+
+
+  /*
+    現在の投稿内で
+    どれだけスクロールしたか
+  */
+
+  let positionInPost =
+    scrollY - currentStart;
+
+
+  positionInPost =
+    Math.max(
+      0,
+      Math.min(
+        positionInPost,
+        requiredScroll
+      )
+    );
+
+
+  /*
+    経過時間
+  */
+
+  const elapsed =
+    Date.now() - postStartTime;
+
+
+  /*
+    残り時間
+  */
+
+  let remainingTime =
+    Math.max(
+      0,
+      requiredTime - elapsed
+    );
+
+
+  /*
+    残りスクロール
+  */
+
+  let remainingScroll =
+    Math.max(
+      0,
+      requiredScroll - positionInPost
+    );
+
+
+  /*
+    秒に変換
+  */
+
+  const remainingSeconds =
+    Math.ceil(
+      remainingTime / 1000
+    );
+
+
+  /* ==================================================
+     SCROLL INFO
+  ================================================== */
+
+  document
+    .getElementById("scrollInfo")
+    .textContent =
+      "SCROLL: " +
+      Math.round(scrollY) +
+      "px";
+
+
+  /* ==================================================
+     PROGRESS
+  ================================================== */
+
+  document
+    .getElementById("progress")
+    .textContent =
+      "NEXT: " +
+      Math.round(positionInPost) +
+      " / " +
+      requiredScroll +
+      "px";
+
+
+  /* ==================================================
+     LOCK MESSAGE
+  ================================================== */
+
+  const lockMessage =
+    document.getElementById("lockMessage");
+
+
+  /*
+    最後の投稿
+  */
+
+  if (
+    currentPost >= totalPosts - 1
+  ) {
+
+    lockMessage.textContent =
+      "FEED END";
+
+    return;
+  }
+
+
+  /*
+    10,000pxにまだ到達していない
+  */
+
+  if (
+    positionInPost < requiredScroll
+  ) {
+
+    lockMessage.textContent =
+      "あと " +
+      Math.round(remainingScroll) +
+      "px";
+
+
+    /*
+      10秒経過していない場合は
+      時間も表示
+    */
+
+    if (remainingTime > 0) {
+
+      lockMessage.textContent +=
+        " / あと " +
+        remainingSeconds +
+        "秒";
+
+    }
+
+    return;
+  }
+
+
+  /*
+    10,000px到達済み
+    まだ10秒経っていない
+  */
+
+  if (
+    remainingTime > 0
+  ) {
+
+    lockMessage.textContent =
+      "あと " +
+      remainingSeconds +
+      "秒で次の投稿";
+
+    return;
+  }
+
+
+  /*
+    両方クリア
+  */
+
+  lockMessage.textContent =
+    "次の投稿へ";
+
+}
+
+
+/* ==================================================
+   TIMER
+================================================== */
+
+/*
+  スクロールしなくても
+  「あと○秒」の表示が更新されるようにする
+*/
+
+setInterval(
+  function() {
+
+    updateUI();
+
+  },
+  100
+);
+
+
 </script>
 
-
 </body>
-
 </html>
