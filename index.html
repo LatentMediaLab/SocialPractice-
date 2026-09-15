@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<title>FEED</title>
+
+<style>
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #111;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+
+
+
+body {
+  overflow-x: hidden;
+}
+
+
+
+
+.post-zone {
+  height: 10000px;
+  position: relative;
+}
+
+
+
+.post {
+
+  width: 600px;
+  height: 680px;
+
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  margin: 0;
+  padding: 20px 0;
+
+  overflow: hidden;
+
+  border-bottom: 1px solid #333;
+
+  
+
+  -webkit-mask-image:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0,0,0,0.15) 8%,
+      black 22%,
+      black 78%,
+      rgba(0,0,0,0.15) 92%,
+      transparent 100%
+    );
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0,0,0,0.15) 8%,
+      black 22%,
+      black 78%,
+      rgba(0,0,0,0.15) 92%,
+      transparent 100%
+    );
+
+}
+
+
+
+
+.user {
+
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 12px;
+  padding: 0 15px;
+
+  font-size: 14px;
+
+}
+
+
+.icon {
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: #555;
+
+  margin-right: 10px;
+
+}
+
+
+
+
+.image {
+
+  width: 600px;
+  height: 450px;
+
+  background: #000;
+
+  overflow: hidden;
+
+  margin-bottom: 12px;
+
+}
+
+
+.image img,
+.image video {
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  display: block;
+
+}
+
+
+
+
+.caption {
+
+  padding: 0 15px;
+
+  font-size: 15px;
+
+  line-height: 1.6;
+
+}
+
+
+
+
+.actions {
+
+  padding: 12px 15px 0;
+
+  font-size: 14px;
+
+}
+
+
+
+
+.fog {
+
+  position: fixed;
+
+  left: 0;
+
+  width: 100%;
+
+  pointer-events: none;
+
+  z-index: 10;
+
+}
+
+
+
+
+.fog.top {
+
+  top: 0;
+
+  height: 25vh;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #111 0%,
+      rgba(17,17,17,0.9) 30%,
+      rgba(17,17,17,0) 100%
+    );
+
+}
+
+
+
+
+.fog.bottom {
+
+  bottom: 0;
+
+  height: 25vh;
+
+  background:
+    linear-gradient(
+      to top,
+      #111 0%,
+      rgba(17,17,17,0.9) 30%,
+      rgba(17,17,17,0) 100%
+    );
+
+}
+
+
+
+
+#scrollInfo {
+
+  position: fixed;
+
+  top: 15px;
+  left: 15px;
+
+  z-index: 20;
+
+  font-size: 12px;
+
+  color: #777;
+
+}
+
+
+#progress {
+
+  position: fixed;
+
+  top: 35px;
+  left: 15px;
+
+  z-index: 20;
+
+  font-size: 12px;
+
+  color: #777;
+
+}
+
+
+#lockMessage {
+
+  position: fixed;
+
+  bottom: 20px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  z-index: 20;
+
+  font-size: 14px;
+
+  color: #aaa;
+
+  white-space: nowrap;
+
+}
+
+
+
+
+@media (max-width: 700px) {
+
+  .post {
+
+    width: calc(100vw - 40px);
+
+    height: 680px;
+
+  }
+
+
+  .image {
+
+    width: 100%;
+
+    height: 450px;
+
+  }
+
+}
+
+
+
+@media (max-height: 750px) {
+
+  .post {
+
+    height: 620px;
+
+  }
+
+  .image {
+
+    height: 390px;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+
+
+<div id="scrollInfo">
+  SCROLL: 0px
+</div>
+
+<div id="progress">
+  NEXT: 0 / 10000px
+</div>
+
+<div id="lockMessage">
+  あと 10000px で次の投稿
+</div>
+
+
+<!-- =========================
+     POST 1
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>visual_daily</span>
+    </div>
+
+    <div class="image">
+      <img src="photo1.jpg">
+    </div>
+
+    <div class="caption">
+      今日見つけた景色。
+    </div>
+
+    <div class="actions">
+      ♡ 248　💬 12
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST 2
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>design_world</span>
+    </div>
+
+    <div class="image">
+      <img src="photo2.jpg">
+    </div>
+
+    <div class="caption">
+      新しいデザインを考え中。
+    </div>
+
+    <div class="actions">
+      ♡ 521　💬 38
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST 3
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>3d_creator</span>
+    </div>
+
+    <div class="image">
+      <img src="photo3.jpg">
+    </div>
+
+    <div class="caption">
+      Blenderで制作中。
+    </div>
+
+    <div class="actions">
+      ♡ 183　💬 9
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST 4
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>photo_memory</span>
+    </div>
+
+    <div class="image">
+      <img src="photo4.jpg">
+    </div>
+
+    <div class="caption">
+      去年撮った写真。
+    </div>
+
+    <div class="actions">
+      ♡ 96　💬 4
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST 5
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>food_daily</span>
+    </div>
+
+    <div class="image">
+      <img src="photo5.jpg">
+    </div>
+
+    <div class="caption">
+      今日のごはん。
+    </div>
+
+    <div class="actions">
+      ♡ 734　💬 51
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST 6
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>daily_room</span>
+    </div>
+
+    <div class="image">
+
+      <video
+        src="photo6.mp4"
+        muted
+        loop
+        playsinline
+        preload="metadata">
+      </video>
+
+    </div>
+
+    <div class="caption">
+      なんとなく撮った日常。
+    </div>
+
+    <div class="actions">
+      ♡ 324　💬 17
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST 7
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>world_news</span>
+    </div>
+
+    <div class="image">
+
+      <video
+        src="photo7.mov"
+        muted
+        loop
+        playsinline
+        preload="metadata">
+      </video>
+
+    </div>
+
+    <div class="caption">
+      今日のニュース。
+    </div>
+
+    <div class="actions">
+      ♡ 102　💬 26
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST 8
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>recommend</span>
+    </div>
+
+    <div class="image">
+
+      <video
+        src="photo8.mp4"
+        muted
+        loop
+        playsinline
+        preload="metadata">
+      </video>
+
+    </div>
+
+    <div class="caption">
+      これおすすめです。
+    </div>
+
+    <div class="actions">
+      ♡ 891　💬 74
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST 9
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>daily_life</span>
+    </div>
+
+    <div class="image">
+
+      <video
+        src="photo9.mp4"
+        muted
+        loop
+        playsinline
+        preload="metadata">
+      </video>
+
+    </div>
+
+    <div class="caption">
+      今日はこんな一日でした。
+    </div>
+
+    <div class="actions">
+      ♡ 411　💬 21
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST 10
+========================= -->
+
+<div class="post-zone">
+
+  <div class="post">
+
+    <div class="user">
+      <div class="icon"></div>
+      <span>animal_world</span>
+    </div>
+
+    <div class="image">
+      <img src="photo10.png">
+    </div>
+
+    <div class="caption">
+      かわいい。
+    </div>
+
+    <div class="actions">
+      ♡ 1,204　💬 89
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     霧
+========================= -->
+
+<div class="fog top"></div>
+<div class="fog bottom"></div>
+
+
+<script>
+
+
+
+const requiredScroll = 10000;
+
+const postZones =
+  document.querySelectorAll(".post-zone");
+
+const totalPosts =
+  postZones.length;
+
+
+
+
+history.scrollRestoration = "manual";
+
+window.addEventListener("load", function() {
+
+  window.scrollTo(0, 0);
+
+  updatePosts(0);
+  updateUI(0);
+
+});
+
+
+/* ========================================
+   投稿の切り替え
+======================================== */
+
+function updatePosts(scrollY) {
+
+  /*
+    Safariのゴムバンドスクロール対策
+  */
+
+  scrollY = Math.max(0, scrollY);
+
+
+  /*
+    10000pxごとに投稿番号を変更
+  */
+
+  let currentPost =
+    Math.floor(scrollY / requiredScroll);
+
+
+  currentPost =
+    Math.min(
+      currentPost,
+      totalPosts - 1
+    );
+
+
+  postZones.forEach(function(zone, index) {
+
+    const post =
+      zone.querySelector(".post");
+
+    const video =
+      zone.querySelector("video");
+
+
+    if (index === currentPost) {
+
+      /*
+        現在の投稿だけ表示
+      */
+
+      post.style.display = "block";
+
+
+      /*
+        現在の動画だけ再生
+      */
+
+      if (video) {
+
+        video.play().catch(function() {
+          // iPadの自動再生制限対策
+        });
+
+      }
+
+    }
+
+    else {
+
+      /*
+        他の投稿は非表示
+      */
+
+      post.style.display = "none";
+
+
+      /*
+        他の動画は停止
+      */
+
+      if (video) {
+
+        video.pause();
+
+      }
+
+    }
+
+  });
+
+}
+
+
+/* ========================================
+   UI更新
+======================================== */
+
+function updateUI(scrollY) {
+
+  scrollY = Math.max(0, scrollY);
+
+
+  let currentPost =
+    Math.floor(scrollY / requiredScroll);
+
+
+  currentPost =
+    Math.min(
+      currentPost,
+      totalPosts - 1
+    );
+
+
+  /*
+    現在の投稿内で
+    どこまでスクロールしたか
+  */
+
+  let positionInPost =
+    scrollY % requiredScroll;
+
+
+  positionInPost =
+    Math.min(
+      positionInPost,
+      requiredScroll
+    );
+
+
+  /*
+    SCROLL表示
+  */
+
+  document.getElementById(
+    "scrollInfo"
+  ).textContent =
+    "SCROLL: " +
+    Math.round(scrollY) +
+    "px";
+
+
+  /*
+    NEXT表示
+  */
+
+  document.getElementById(
+    "progress"
+  ).textContent =
+    "NEXT: " +
+    Math.round(positionInPost) +
+    " / " +
+    requiredScroll +
+    "px";
+
+
+  /*
+    残り距離
+  */
+
+  if (currentPost < totalPosts - 1) {
+
+    const remaining =
+      requiredScroll -
+      positionInPost;
+
+
+    document.getElementById(
+      "lockMessage"
+    ).textContent =
+      "あと " +
+      Math.round(remaining) +
+      "px で次の投稿";
+
+  }
+
+  else {
+
+    document.getElementById(
+      "lockMessage"
+    ).textContent =
+      "FEED END";
+
+  }
+
+}
+
+
+/* ========================================
+   スクロールイベント
+======================================== */
+
+let ticking = false;
+
+
+window.addEventListener(
+  "scroll",
+  function() {
+
+    if (!ticking) {
+
+      window.requestAnimationFrame(
+        function() {
+
+          const scrollY =
+            window.scrollY;
+
+
+          updatePosts(scrollY);
+
+          updateUI(scrollY);
+
+
+          ticking = false;
+
+        }
+      );
+
+      ticking = true;
+
+    }
+
+  },
+  {
+    passive: true
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>
