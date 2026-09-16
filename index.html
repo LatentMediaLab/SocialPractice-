@@ -30,7 +30,6 @@
 
 html,
 body {
-
   margin: 0;
   padding: 0;
 
@@ -47,26 +46,21 @@ body {
     Arial,
     sans-serif;
 
-  /* iPad Safari */
   -webkit-text-size-adjust: 100%;
-
 }
 
 
 /* ========================================
-   BODY SCROLL
+   BODY
 ======================================== */
 
 body {
-
   overflow-x: hidden;
 
   /*
-    iPadのタッチスクロールを有効化
+    iPadで縦方向のタッチスクロールを使用
   */
-
   touch-action: pan-y;
-
 }
 
 
@@ -75,17 +69,14 @@ body {
 ======================================== */
 
 .post-zone {
+  width: 100%;
 
   /*
     1投稿につき10000px
   */
-
   height: 10000px;
 
-  width: 100%;
-
   position: relative;
-
 }
 
 
@@ -95,25 +86,36 @@ body {
 
 .post {
 
+  /*
+    画面に固定
+  */
   position: fixed;
 
+  /*
+    横方向の中央
+  */
   left: 50%;
-  top: 50%;
 
+  /*
+    iPadの表示領域の中央
+  */
+  top: 50dvh;
+
+  /*
+    完全に中央配置
+  */
   transform: translate(-50%, -50%);
 
   /*
     PCでは600px
     iPadでは画面幅に合わせて縮小
   */
-
   width: min(600px, 88vw);
 
   /*
-    縦横比を維持
+    iPadの高さに合わせる
   */
-
-  height: min(680px, 90vh);
+  height: min(680px, 80dvh);
 
   background: #111;
 
@@ -121,11 +123,9 @@ body {
 
   overflow: hidden;
 
-
   /*
     上下を徐々に消す
   */
-
   -webkit-mask-image:
     linear-gradient(
       to bottom,
@@ -144,6 +144,7 @@ body {
       transparent 100%
     );
 
+  z-index: 10;
 }
 
 
@@ -156,9 +157,8 @@ body {
   width: 100%;
 
   /*
-    600 × 450 の比率
+    4:3
   */
-
   aspect-ratio: 4 / 3;
 
   display: flex;
@@ -167,7 +167,6 @@ body {
   justify-content: center;
 
   overflow: hidden;
-
 }
 
 
@@ -184,7 +183,6 @@ body {
   object-fit: contain;
 
   display: block;
-
 }
 
 
@@ -202,7 +200,6 @@ body {
     18px
     20px
     8px;
-
 }
 
 
@@ -220,7 +217,6 @@ body {
     12px;
 
   line-height: 1.5;
-
 }
 
 
@@ -235,7 +231,6 @@ body {
   padding:
     0
     20px;
-
 }
 
 
@@ -252,13 +247,11 @@ body {
 
   width: 100%;
 
-  /*
-    iPadのノッチも考慮
-  */
-
-  height: calc(
-    180px + env(safe-area-inset-top)
-  );
+  height:
+    calc(
+      180px +
+      env(safe-area-inset-top)
+    );
 
   pointer-events: none;
 
@@ -272,7 +265,6 @@ body {
     );
 
   z-index: 20;
-
 }
 
 
@@ -289,9 +281,11 @@ body {
 
   width: 100%;
 
-  height: calc(
-    180px + env(safe-area-inset-bottom)
-  );
+  height:
+    calc(
+      180px +
+      env(safe-area-inset-bottom)
+    );
 
   pointer-events: none;
 
@@ -305,7 +299,6 @@ body {
     );
 
   z-index: 20;
-
 }
 
 
@@ -319,7 +312,8 @@ body {
 
   top:
     calc(
-      20px + env(safe-area-inset-top)
+      20px +
+      env(safe-area-inset-top)
     );
 
   left: 20px;
@@ -329,7 +323,6 @@ body {
   z-index: 30;
 
   opacity: 0.7;
-
 }
 
 
@@ -343,7 +336,8 @@ body {
 
   top:
     calc(
-      45px + env(safe-area-inset-top)
+      45px +
+      env(safe-area-inset-top)
     );
 
   left: 20px;
@@ -353,7 +347,6 @@ body {
   z-index: 30;
 
   opacity: 0.7;
-
 }
 
 
@@ -367,7 +360,8 @@ body {
 
   bottom:
     calc(
-      25px + env(safe-area-inset-bottom)
+      25px +
+      env(safe-area-inset-bottom)
     );
 
   left: 50%;
@@ -381,12 +375,11 @@ body {
   text-align: center;
 
   white-space: nowrap;
-
 }
 
 
 /* ========================================
-   iPad PORTRAIT
+   IPAD PORTRAIT
 ======================================== */
 
 @media (max-width: 700px) {
@@ -395,13 +388,15 @@ body {
 
     width: 88vw;
 
+    height: min(680px, 80dvh);
+
   }
 
 }
 
 
 /* ========================================
-   iPad LANDSCAPE
+   IPAD LANDSCAPE
 ======================================== */
 
 @media (orientation: landscape) {
@@ -410,7 +405,7 @@ body {
 
     width: min(600px, 65vw);
 
-    height: min(680px, 90vh);
+    height: min(680px, 80dvh);
 
   }
 
@@ -418,14 +413,14 @@ body {
 
 
 /* ========================================
-   SMALL SCREEN
+   SMALL HEIGHT
 ======================================== */
 
 @media (max-height: 700px) {
 
   .post {
 
-    height: 86vh;
+    height: 82dvh;
 
   }
 
@@ -873,18 +868,19 @@ body {
 
 
 /*
-  1投稿を見るために必要なスクロール量
+  1投稿につき必要なスクロール量
 */
 
-const requiredScroll = 30000;
+const requiredScroll = 10000;
 
 
 /*
-  1投稿を見るために必要な時間
+  1投稿につき必要な時間
+
   10000ms = 10秒
 */
 
-const requiredTime = 20000;
+const requiredTime = 10000;
 
 
 
@@ -906,7 +902,7 @@ const totalPosts =
 
 
 /*
-  現在表示している投稿番号
+  現在表示している投稿
 
   0 = 投稿1
   1 = 投稿2
@@ -918,10 +914,11 @@ let currentPost = 0;
 
 
 /*
-  現在の投稿が表示され始めた時間
+  現在の投稿が表示された時間
 */
 
-let postStartTime = Date.now();
+let postStartTime =
+  Date.now();
 
 
 /*
@@ -936,7 +933,8 @@ let ticking = false;
    HISTORY
 ================================================== */
 
-history.scrollRestoration = "manual";
+history.scrollRestoration =
+  "manual";
 
 
 
@@ -946,59 +944,66 @@ history.scrollRestoration = "manual";
 
 function showPost(index) {
 
-  postZones.forEach(function(zone, i) {
+  postZones.forEach(
+    function(zone, i) {
 
-    const post =
-      zone.querySelector(".post");
+      const post =
+        zone.querySelector(".post");
 
-    const video =
-      zone.querySelector("video");
-
-
-    /*
-      現在の投稿
-    */
-
-    if (i === index) {
-
-      post.style.display = "block";
+      const video =
+        zone.querySelector("video");
 
 
       /*
-        動画を再生
+        現在の投稿
       */
 
-      if (video) {
+      if (i === index) {
 
-        video.play().catch(function() {});
+        post.style.display =
+          "block";
+
+
+        /*
+          動画を再生
+        */
+
+        if (video) {
+
+          video.play()
+            .catch(
+              function() {}
+            );
+
+        }
+
+      }
+
+
+      /*
+        現在ではない投稿
+      */
+
+      else {
+
+        post.style.display =
+          "none";
+
+
+        /*
+          動画を停止
+        */
+
+        if (video) {
+
+          video.pause();
+
+        }
 
       }
 
     }
-
-
-    /*
-      現在ではない投稿
-    */
-
-    else {
-
-      post.style.display = "none";
-
-
-      /*
-        動画を停止
-      */
-
-      if (video) {
-
-        video.pause();
-
-      }
-
-    }
-
-  });
+  );
 
 }
 
@@ -1013,14 +1018,17 @@ window.addEventListener(
   function() {
 
     /*
-      ページの一番上へ
+      ページを一番上へ
     */
 
-    window.scrollTo(0, 0);
+    window.scrollTo(
+      0,
+      0
+    );
 
 
     /*
-      投稿1
+      投稿1から開始
     */
 
     currentPost = 0;
@@ -1030,14 +1038,17 @@ window.addEventListener(
       投稿1の10秒カウント開始
     */
 
-    postStartTime = Date.now();
+    postStartTime =
+      Date.now();
 
 
     /*
       投稿1を表示
     */
 
-    showPost(currentPost);
+    showPost(
+      currentPost
+    );
 
 
     /*
@@ -1071,35 +1082,39 @@ function handleScroll() {
   */
 
   const currentStart =
-    currentPost * requiredScroll;
+    currentPost *
+    requiredScroll;
 
 
   /*
     ----------------------------------------
-    次の投稿へ進むための境界
+    次の投稿へ進む境界
     ----------------------------------------
   */
 
   const nextBoundary =
-    (currentPost + 1)
-    * requiredScroll;
+    (currentPost + 1) *
+    requiredScroll;
 
 
   /*
     ----------------------------------------
-    現在の投稿を表示してから
-    何ms経過したか
+    経過時間
     ----------------------------------------
   */
 
   const elapsed =
-    Date.now() - postStartTime;
+    Date.now() -
+    postStartTime;
 
+
+
+  /* ==================================================
+     BACKWARD
+  ================================================== */
 
   /*
-    ==================================================
     前の投稿へ戻った場合
-    ==================================================
   */
 
   if (
@@ -1108,12 +1123,13 @@ function handleScroll() {
   ) {
 
     /*
-      どの投稿まで戻ったか
+      戻った投稿番号
     */
 
     const previousPost =
       Math.floor(
-        scrollY / requiredScroll
+        scrollY /
+        requiredScroll
       );
 
 
@@ -1125,28 +1141,33 @@ function handleScroll() {
 
 
     /*
-      戻った投稿では
-      もう一度10秒カウント
+      戻った投稿でも
+      10秒カウント開始
     */
 
     postStartTime =
       Date.now();
 
 
-    showPost(currentPost);
+    showPost(
+      currentPost
+    );
+
 
     updateUI();
 
     return;
-
   }
 
 
 
+  /* ==================================================
+     LAST POST
+  ================================================== */
+
   /*
-    ==================================================
-    最後の投稿
-    ==================================================
+    最後の投稿なら
+    次へ進まない
   */
 
   if (
@@ -1157,38 +1178,36 @@ function handleScroll() {
     updateUI();
 
     return;
-
   }
 
 
 
+  /* ==================================================
+     CONDITIONS
+  ================================================== */
+
   /*
-    ==================================================
-    スクロール条件
-    ==================================================
+    10000px到達
   */
 
   const reachedScroll =
-    scrollY >= nextBoundary;
-
+    scrollY >=
+    nextBoundary;
 
 
   /*
-    ==================================================
-    時間条件
-    ==================================================
+    10秒経過
   */
 
   const reachedTime =
-    elapsed >= requiredTime;
+    elapsed >=
+    requiredTime;
 
 
 
-  /*
-    ==================================================
-    両方クリア
-    ==================================================
-  */
+  /* ==================================================
+     BOTH CONDITIONS CLEAR
+  ================================================== */
 
   if (
     reachedScroll &&
@@ -1212,43 +1231,39 @@ function handleScroll() {
 
 
     /*
-      投稿を変更
+      投稿変更
     */
 
-    showPost(currentPost);
+    showPost(
+      currentPost
+    );
 
 
     /*
       ----------------------------------------
-      重要
+      投稿を飛ばさないために
+      次の投稿の開始位置へ戻す
       ----------------------------------------
-
-      一気にスワイプしても
-      投稿を飛ばさない。
-
-      必ず次の投稿の開始位置へ戻す。
     */
 
     window.scrollTo(
       0,
-      currentPost * requiredScroll
+      currentPost *
+      requiredScroll
     );
 
 
     updateUI();
 
     return;
-
   }
 
 
 
-  /*
-    ==================================================
-    10,000pxには到達したが
-    10秒経っていない
-    ==================================================
-  */
+  /* ==================================================
+     SCROLL CLEAR
+     TIME NOT CLEAR
+  ================================================== */
 
   if (
     reachedScroll &&
@@ -1256,7 +1271,7 @@ function handleScroll() {
   ) {
 
     /*
-      10,000px地点で強制停止
+      10000px地点でロック
     */
 
     window.scrollTo(
@@ -1268,16 +1283,13 @@ function handleScroll() {
     updateUI();
 
     return;
-
   }
 
 
 
-  /*
-    ==================================================
-    まだ10,000pxに到達していない
-    ==================================================
-  */
+  /* ==================================================
+     NOT YET
+  ================================================== */
 
   updateUI();
 
@@ -1332,23 +1344,24 @@ function updateUI() {
 
   /*
     ----------------------------------------
-    現在の投稿の開始位置
+    現在の投稿開始位置
     ----------------------------------------
   */
 
   const currentStart =
-    currentPost * requiredScroll;
+    currentPost *
+    requiredScroll;
 
 
   /*
     ----------------------------------------
-    現在の投稿内で
-    どれだけスクロールしたか
+    現在の投稿内でのスクロール量
     ----------------------------------------
   */
 
   let positionInPost =
-    scrollY - currentStart;
+    scrollY -
+    currentStart;
 
 
   positionInPost =
@@ -1368,7 +1381,8 @@ function updateUI() {
   */
 
   const elapsed =
-    Date.now() - postStartTime;
+    Date.now() -
+    postStartTime;
 
 
   /*
@@ -1380,7 +1394,8 @@ function updateUI() {
   const remainingTime =
     Math.max(
       0,
-      requiredTime - elapsed
+      requiredTime -
+      elapsed
     );
 
 
@@ -1393,7 +1408,8 @@ function updateUI() {
   const remainingScroll =
     Math.max(
       0,
-      requiredScroll - positionInPost
+      requiredScroll -
+      positionInPost
     );
 
 
@@ -1405,7 +1421,8 @@ function updateUI() {
 
   const remainingSeconds =
     Math.ceil(
-      remainingTime / 1000
+      remainingTime /
+      1000
     );
 
 
@@ -1415,7 +1432,9 @@ function updateUI() {
   ================================================== */
 
   document
-    .getElementById("scrollInfo")
+    .getElementById(
+      "scrollInfo"
+    )
     .textContent =
       "SCROLL: " +
       Math.round(scrollY) +
@@ -1428,7 +1447,9 @@ function updateUI() {
   ================================================== */
 
   document
-    .getElementById("progress")
+    .getElementById(
+      "progress"
+    )
     .textContent =
       "NEXT: " +
       Math.round(positionInPost) +
@@ -1464,23 +1485,23 @@ function updateUI() {
       "FEED END";
 
     return;
-
   }
 
 
 
   /*
     ----------------------------------------
-    まだ10,000pxに到達していない
+    10000px未満
     ----------------------------------------
   */
 
   if (
-    positionInPost < requiredScroll
+    positionInPost <
+    requiredScroll
   ) {
 
     /*
-      まだ時間も残っている
+      10秒もまだ
     */
 
     if (
@@ -1489,7 +1510,9 @@ function updateUI() {
 
       lockMessage.textContent =
         "あと " +
-        Math.round(remainingScroll) +
+        Math.round(
+          remainingScroll
+        ) +
         "px / あと " +
         remainingSeconds +
         "秒";
@@ -1498,28 +1521,29 @@ function updateUI() {
 
 
     /*
-      10秒はすでに経過
+      10秒は経過済み
     */
 
     else {
 
       lockMessage.textContent =
         "あと " +
-        Math.round(remainingScroll) +
+        Math.round(
+          remainingScroll
+        ) +
         "px";
 
     }
 
     return;
-
   }
 
 
 
   /*
     ----------------------------------------
-    10,000px到達済み
-    時間待ち
+    10000px到達
+    10秒待ち
     ----------------------------------------
   */
 
@@ -1533,7 +1557,6 @@ function updateUI() {
       "秒で次の投稿";
 
     return;
-
   }
 
 
@@ -1557,8 +1580,8 @@ function updateUI() {
 
 
 /*
-  iPadではスクロールしていなくても
-  カウントダウン表示を更新する
+  スクロールしていなくても
+  残り秒数を更新する
 */
 
 setInterval(
